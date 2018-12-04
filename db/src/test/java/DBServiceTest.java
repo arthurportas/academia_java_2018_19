@@ -4,6 +4,8 @@ import org.junit.Test;
 import service.DBService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,4 +52,21 @@ public class DBServiceTest {
         //assertJ
         assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
     }
+
+    @Test
+    public void getByFirstOrLastNameWhereItEqualInput_ReturnTrue() throws SQLException, ClassNotFoundException {
+        DBService service = new DBService();
+
+        String searchQuery = "hhh";
+        String name ="hhhhhh";
+        List<Employee> employeeList = new ArrayList<>(service.searchEmployeeByAny(searchQuery));
+        Employee emp = employeeList.get(employeeList.size()-1);
+        System.out.println();
+
+        Assert.assertTrue(emp.getFirstName().equals(name));
+
+
+
+    }
+
 }
