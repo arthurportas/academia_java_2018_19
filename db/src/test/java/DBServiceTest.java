@@ -4,6 +4,8 @@ import org.junit.Test;
 import service.DBService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,8 +53,10 @@ public class DBServiceTest {
         assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
     }
     @Test
-    public void listEmployee() throws SQLException, ClassNotFoundException {
+    public void ifListEmployeeHaveAllDates() throws SQLException, ClassNotFoundException {
         DBService service = new DBService();
+        List<Employee> employeeList = new ArrayList<>();
+
     }
 
 }
