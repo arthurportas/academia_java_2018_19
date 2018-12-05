@@ -3,9 +3,7 @@ package service;
 import db.DB;
 import dto.Employee;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 
 public class DBService {
@@ -56,4 +54,41 @@ public class DBService {
         }
         return null;
     }
+
+    public Employee updateEmployee(Employee toUpdate) throws ClassNotFoundException, SQLException {
+
+        Connection newConnection = null;
+        String updateparameters = "";
+
+        PreparedStatement statement = newConnection.prepareStatement(updateparameters);
+
+        String updateEmployee = "update employees set birth_date = ?, first_name = ?, last_name = ?, hire_date = ? where emp_no = ?";
+
+        statement.setString(1, "30001-10-10");
+        statement.setString(2, "Carlos");
+        statement.setString(3, "Castanheira");
+        statement.setString(4, "2000-10-01");
+        statement.setString(5, "500007");
+
+        int rowsUpdated = statement.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("The existing user has been updated successfully");
+        }
+
+        String selectEmployeeQuery = "select * from employees where emp_no = 50007";
+
+        ResultSet insertResultSet = statement.executeQuery(selectEmployeeQuery);
+        while (insertResultSet.next()) {
+            Employee newSavedEmployee = new Employee();
+            newSavedEmployee.setDob(insertResultSet.getDate("birth_date").toString());
+            newSavedEmployee.setFirstName(insertResultSet.getString("first_name"));
+            newSavedEmployee.setLastName(insertResultSet.getString("last_name"));
+            newSavedEmployee.setGender(insertResultSet.getString("gender"));
+            newSavedEmployee.setHireDate(insertResultSet.getString("hire_date"));
+            return newSavedEmployee;
+
+        }
+    return null;
+    }
+
 }
