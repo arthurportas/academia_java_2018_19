@@ -4,6 +4,7 @@ import org.junit.Test;
 import service.DBService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,6 +49,17 @@ public class DBServiceTest {
         Assert.assertTrue(savedEmployee.getFirstName().equals(toSave.getFirstName()));
 
         //assertJ
-        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
+        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number", "hireDate");
+    }
+
+    @Test
+    public void listReturnsEmployeeClassObject() throws SQLException, ClassNotFoundException {
+        DBService dbService = new DBService();
+        List<Employee> employeeSalaryByDept = dbService.listEmployeeSalariesByDepartment();
+
+        Employee testEmployee = employeeSalaryByDept.get(0);
+
+        Assert.assertTrue(testEmployee instanceof Employee);
+
     }
 }
