@@ -60,19 +60,28 @@ public class DBService {
         return null;
     }
 
-    public List listAllEmployee() throws ClassNotFoundException, SQLException {
-        //inserir query
+    public List<Employee> listAllEmployee() throws ClassNotFoundException, SQLException {
+
         Statement statement = DB.INSTANCE().connection().createStatement();
 
         String listAllQuery = "select * from employees";
 
         ResultSet resultSet = statement.executeQuery(listAllQuery);
 
+        List listAllEmp = new ArrayList();
         while (resultSet.next()) {
-            String name = resultSet.getString("first_name");
+            Employee employee= new Employee();
 
-            List listAllEmp = new ArrayList();
-            listAllEmp.add(name);
+            employee.setNumber(resultSet.getInt("empo_no"));
+            employee.setDob(resultSet.getDate("birth_date").toString());
+            employee.setFirstName(resultSet.getString("first_name"));
+            employee.setLastName(resultSet.getString("last_name"));
+            employee.setGender(resultSet.getString("gender"));
+            employee.setHireDate(resultSet.getString("hire_date"));
+
+
+            listAllEmp.add(employee);
         }
+        return listAllEmp;
     }
 }

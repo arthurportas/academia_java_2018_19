@@ -50,5 +50,9 @@ public class DBServiceTest {
         //assertJ
         assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
     }
+    @Test
+    public void listEmployee() throws SQLException, ClassNotFoundException {
+        DBService service = new DBService();
+    }
 
 }
