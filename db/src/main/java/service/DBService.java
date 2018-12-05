@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DBService {
 
@@ -55,5 +58,21 @@ public class DBService {
             }
         }
         return null;
+    }
+
+    public List listAllEmployee() throws ClassNotFoundException, SQLException {
+        //inserir query
+        Statement statement = DB.INSTANCE().connection().createStatement();
+
+        String listAllQuery = "select * from employees";
+
+        ResultSet resultSet = statement.executeQuery(listAllQuery);
+
+        while (resultSet.next()) {
+            String name = resultSet.getString("first_name");
+
+            List listAllEmp = new ArrayList();
+            listAllEmp.add(name);
+        }
     }
 }
