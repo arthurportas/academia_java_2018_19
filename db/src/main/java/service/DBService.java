@@ -71,7 +71,7 @@ public class DBService {
                 " join current_dept_emp ed on e.emp_no = ed.emp_no " +
                 " join departments d on d.dept_no = ed.dept_no " +
                 " where e.emp_no > 499990" +
-                " group by e.emp_no3;";
+                " group by e.emp_no, d.dept_name;";
 
         ResultSet rs = statement.executeQuery(dbQuery);
 
