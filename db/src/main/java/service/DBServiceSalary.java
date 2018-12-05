@@ -11,40 +11,37 @@ public class DBServiceSalary {
 
     public List<Employee> myList()  throws ClassNotFoundException, SQLException {
 
-      /*  Class.forName("com.mysql.cj.jdbc.Driver");
-        String jdbc = "jdbc:mysql://localhost/employees?user=root&password=password";
-
-       Connection connection = DriverManager.getConnection(jdbc);
-
-        Statement st = connection.createStatement();*/
-
-
         Statement statement = DB.INSTANCE().connection().createStatement();
-
 
         String listSalaries = "select * from salaries where salary>=1000;";
 
-
         ResultSet listResultSet = statement.executeQuery(listSalaries);
+
         List<Employee> salaryList = new ArrayList();
 
         while (listResultSet.next()) {
 
+            Employee salaryEmployee = new Employee();
+            salaryEmployee.setNumber(listResultSet.getInt("emp_no"));
+            salaryEmployee.setSalary(listResultSet.getInt("salary"));
+            salaryEmployee.setFrom_date(listResultSet.getString("from_date"));
+            salaryEmployee.setTo_date(listResultSet.getString("to_date"));
 
-
-            salaryList.add((listResultSet.getInt("emp_no")));
-            salaryList.add(listResultSet.getInt("salary"));
-            salaryList.add(listResultSet.getString("from_date"));
-            salaryList.add(listResultSet.getString("to_date"));
-
-            return salaryList;
+            salaryList.add(salaryEmployee);
         }
 
-        return null;
+
+
+        return salaryList;
+
+
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
+        DBServiceSalary exemplo = new DBServiceSalary();
+
+        System.out.println(exemplo.myList());
 
 
 
