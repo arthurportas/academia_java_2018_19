@@ -55,7 +55,9 @@ public class DBServiceTest {
     @Test
     public void ifListEmployeeHaveAllDates() throws SQLException, ClassNotFoundException {
         DBService service = new DBService();
-        List<Employee> employeeList = new ArrayList<>();
+        List<Employee> employeeList= new ArrayList<>(service.listAllEmployee());
+
+        assertThat(employeeList, contains("emp_no", "birth_date", "first_name", "last_name", "gender", "hire_date"));
 
     }
 
