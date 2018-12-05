@@ -30,10 +30,7 @@ public class DBServiceSalary {
             salaryList.add(salaryEmployee);
         }
 
-
-
         return salaryList;
-
 
     }
 
