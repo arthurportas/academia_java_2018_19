@@ -9,12 +9,18 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 public class DBService {
+    public Employee updateEmployee(Employee toUpdate) throws ClassNotFoundException, SQLException {
+
+        Statement statement = public Employee updateEmployee(Employee toUpdate) throws ClassNotFoundException, SQLException {}
+
+        return null;
+    }
 
     public Employee insertEmployee(Employee toSave) throws ClassNotFoundException, SQLException {
 
         Statement statement = DB.INSTANCE().connection().createStatement();
 
-        String lastIdQuery = "select max(emp_no) as last_id from employees";
+        String lastIdQuery = "select * from employees";
 
         ResultSet resultSet = statement.executeQuery(lastIdQuery);
 
