@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 public class Employee {
     private long number;
     private String dob;
@@ -7,6 +9,8 @@ public class Employee {
     private String lastName;
     private String gender;
     private String hireDate;
+    private long salary;
+    private String dept;
 
     public long getNumber() {
         return number;
@@ -55,4 +59,21 @@ public class Employee {
     public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
     }
+
+    public long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(long salary) {
+        this.salary = salary;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
 }

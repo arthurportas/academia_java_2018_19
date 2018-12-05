@@ -3,6 +3,7 @@ package menu;
 import dto.Employee;
 import service.DBService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,17 +22,16 @@ public class Menu {
                     "Select an option: \n" +
                             "  1) Insert employee\n" +
                             "  2) Search employee\n" +
-                            "  3) Sair\n "
+                            "  3) List employee salaries by department\n" +
+                            "  4) Sair\n "
             );
             int selection = input.nextInt();
             input.nextLine();
 
             switch (selection) {
                 case 1:
-
                     Employee toSave = readNewEmployee();
                     Employee employee = dbService.insertEmployee(toSave);
-
                     System.out.println(employee);
 
                     break;
@@ -39,6 +39,14 @@ public class Menu {
 
                     break;
                 case 3:
+                    List<Employee> employeeSalaryByDept = dbService.listEmployeeSalariesByDepartment();
+
+                    for (Employee employeee : employeeSalaryByDept) {
+                        System.out.println(employeee.getFirstName() + " " + employeee.getLastName() + " - " + employeee.getSalary() + " - " + employeee.getDept());
+                    }
+
+                    break ;
+                case 4:
                     System.exit(0);
                     break ;
                 default:

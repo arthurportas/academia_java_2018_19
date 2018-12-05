@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBService {
 
@@ -55,5 +57,36 @@ public class DBService {
             }
         }
         return null;
+    }
+
+    public List<Employee> listEmployeeSalariesByDepartment() throws ClassNotFoundException, SQLException {
+
+        List employeeList = new ArrayList<>();
+
+        Statement statement = DB.INSTANCE().connection().createStatement();
+
+        String dbQuery = "select e.emp_no as empId, e.first_name as firstName, e.last_name as lastName, sum(s.salary) as salary, d.dept_name as dept" +
+                " from employees e" +
+                " join salaries s on e.emp_no = s.emp_no" +
+                " join current_dept_emp ed on e.emp_no = ed.emp_no " +
+                " join departments d on d.dept_no = ed.dept_no " +
+                " where e.emp_no > 499990" +
+                " group by e.emp_no3;";
+
+        ResultSet rs = statement.executeQuery(dbQuery);
+
+
+        while(rs.next()) {
+            Employee newEmployee = new Employee();
+            newEmployee.setNumber(rs.getLong("empId"));
+            newEmployee.setFirstName(rs.getString("firstName").toString());
+            newEmployee.setLastName(rs.getString("lastname"));
+            newEmployee.setSalary(rs.getLong("salary"));
+            newEmployee.setDept(rs.getString("dept"));
+
+            employeeList.add(newEmployee);
+        }
+
+        return employeeList;
     }
 }
