@@ -59,6 +59,15 @@ public class DBService {
 
     public Employee updateEmployee(Employee toUpdate) throws ClassNotFoundException, SQLException {
 
-        String uEmployee = "update employees set birth_date='1997-09-04', first_name='Miguel' where emp_no = 500001";
+        StringBuilder uEmployee = new StringBuilder("UPDATE  cliente SET ");
+        uEmployee.append("birth_date = '").append("1988-07-25").append("',");
+        uEmployee.append("first_name = '").append("Diney").append("',");
+        uEmployee.append("last_name= '").append("Rosario").append("',");
+        uEmployee.append("gender= '").append("M").append("',");
+        uEmployee.append("hire_date= '").append("2021-05-04").append("', ");
+        uEmployee.append("WHERE emp_no = '").append("500001").append("',");
+
+        return toUpdate;
+
     }
 }
