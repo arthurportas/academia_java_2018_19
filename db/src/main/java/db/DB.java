@@ -20,7 +20,7 @@ public class DB {
 
     public Connection connection() throws SQLException {
 
-        String jdbc = "jdbc:mysql://localhost/employees?user=root&password=1909mm81";
+        String jdbc = "jdbc:mysql://localhost/employees?user=root&password=password";
         Connection connection = DriverManager.getConnection(jdbc);
         return connection;
     }

@@ -37,7 +37,7 @@ public class DBService {
                     .append("', '")
                     .append(toSave.getGender())
                     .append("', '")
-                    .append("1970-01-01")
+                    .append(LocalDate.now().toString())
                     .append("')")
                     .toString();
             boolean execute = statement.execute(insertQuery);
@@ -59,17 +59,14 @@ public class DBService {
         return null;
     }
 
-    public List searchEmployeeByAny(String searchFor) throws SQLException, ClassNotFoundException {
+    public List<Employee> searchEmployeeByFirstAndLastName(String searchFor) throws SQLException, ClassNotFoundException {
 
         Statement statement = DB.INSTANCE().connection().createStatement();
 
         List<Employee> employeeList = new ArrayList<>();
 
-
-
         String sql = "select * from employees where first_name LIKE '%"+searchFor+"%' or last_name LIKE '%"+searchFor+"%';";
         ResultSet resultSet = statement.executeQuery(sql);
-
 
         while (resultSet.next()) {
             Employee newEmployee = new Employee();
@@ -82,14 +79,6 @@ public class DBService {
             newEmployee.setGender(resultSet.getString("gender"));
 
             employeeList.add(newEmployee);
-            
-//            System.out.println(resultSet.getString("emp_no")
-//                    + " | " +resultSet.getString("birth_date")
-//                    + " | " +resultSet.getString("first_name")
-//                    + " | " +resultSet.getString("last_name")
-//                    + " | " +resultSet.getString("gender")
-//                    + " | " +resultSet.getString("hire_date"));
-
 
         }
 

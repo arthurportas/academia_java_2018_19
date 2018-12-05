@@ -50,22 +50,28 @@ public class DBServiceTest {
         Assert.assertTrue(savedEmployee.getFirstName().equals(toSave.getFirstName()));
 
         //assertJ
-        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
+        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number", "hireDate");
     }
 
     @Test
-    public void getByFirstOrLastNameWhereItEqualInput_ReturnTrue() throws SQLException, ClassNotFoundException {
+    public void getEmployee_ByFirstOrLastName_returnTrue() throws SQLException, ClassNotFoundException {
         DBService service = new DBService();
 
+        /*Inserting new impoloyee to ensure my search will get results*/
+        Employee toSave = new Employee();
+        toSave.setFirstName("hhhhhh");
+        toSave.setLastName("iiiiii");
+        toSave.setDob("1979-08-17");
+        toSave.setGender("M");
+        toSave.setHireDate("1970-01-01");
+
+        service.insertEmployee(toSave);
+
+        /*Search attempt & assert*/
         String searchQuery = "hhh";
-        String name ="hhhhhh";
-        List<Employee> employeeList = new ArrayList<>(service.searchEmployeeByAny(searchQuery));
-        Employee emp = employeeList.get(employeeList.size()-1);
-        System.out.println();
-
-        Assert.assertTrue(emp.getFirstName().equals(name));
-
-
+        List<Employee> employeeList = new ArrayList<>(service.searchEmployeeByFirstAndLastName(searchQuery));
+        Employee emp = employeeList.get(0);
+        assertThat(emp).isEqualToIgnoringGivenFields(toSave, "number", "hireDate");
 
     }
 
