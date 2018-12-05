@@ -29,7 +29,13 @@ public class DBServiceSalary {
             salaryList.add(salaryEmployee);
         }
 
+        for (Employee employee:salaryList){
+            System.out.println(employee.getSalary());
+        }
+
         return salaryList;
+
+
 
     }
 
@@ -37,9 +43,7 @@ public class DBServiceSalary {
 
         DBServiceSalary exemplo = new DBServiceSalary();
 
-        System.out.println(exemplo.myList());
-
-
+        exemplo.myList();
 
     }
 
