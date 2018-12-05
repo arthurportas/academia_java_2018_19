@@ -56,4 +56,54 @@ public class DBService {
         }
         return null;
     }
+
+
+    public Employee updateEmployee(Employee toUpdate) throws ClassNotFoundException, SQLException {
+
+        Statement statement = DB.INSTANCE().connection().createStatement();
+
+        String IdQuery = "select emp_no from employees";
+
+        ResultSet resultSet = statement.executeQuery(IdQuery);
+
+        while (resultSet.next()) {
+
+            int updateId= resultSet.getInt("emp_no");
+
+            String updateQuery = new StringBuilder()
+                    .append("insert into employees (emp_no, birth_date, first_name, last_name, gender, hire_date)")
+                    .append(" values ('")
+                    .append(updateId)
+                    .append("', '")
+                    .append(toUpdate.getDob())
+                    .append("', '")
+                    .append(toUpdate.getFirstName())
+                    .append("', '")
+                    .append(toUpdate.getLastName())
+                    .append("', '")
+                    .append(toUpdate.getGender())
+                    .append("', '")
+                    .append(LocalDate.now().toString())
+                    .append("')")
+                    .toString();
+            boolean execute = statement.execute(updateQuery);
+
+            String updatedEmployeeQuery = "select * from employees where emp_no = " + updateId;
+
+            ResultSet insertResultSet = statement.executeQuery(updatedEmployeeQuery);
+            while (insertResultSet.next()) {
+                Employee updatedEmployee = new Employee();
+                updatedEmployee.setNumber(insertResultSet.getInt("emp_no"));
+                updatedEmployee.setDob(insertResultSet.getDate("birth_date").toString());
+                updatedEmployee.setFirstName(insertResultSet.getString("first_name"));
+                updatedEmployee.setLastName(insertResultSet.getString("last_name"));
+                updatedEmployee.setGender(insertResultSet.getString("gender"));
+                updatedEmployee.setHireDate(insertResultSet.getString("hire_date"));
+                return updatedEmployee;
+            }
+        }
+        return null;
+
+
+    }
 }
