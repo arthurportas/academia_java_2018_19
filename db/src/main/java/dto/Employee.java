@@ -7,6 +7,34 @@ public class Employee {
     private String lastName;
     private String gender;
     private String hireDate;
+    private int salary;
+    private String from_date;
+    private String to_date;
+
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public String getFrom_date() {
+        return from_date;
+    }
+
+    public void setFrom_date(String from_date) {
+        this.from_date = from_date;
+    }
+
+    public String getTo_date() {
+        return to_date;
+    }
+
+    public void setTo_date(String to_date) {
+        this.to_date = to_date;
+    }
 
     public long getNumber() {
         return number;
@@ -54,5 +82,9 @@ public class Employee {
 
     public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
+    }
+
+    public String toString(){
+        return number+" "+salary+" "+from_date+" "+to_date;
     }
 }
