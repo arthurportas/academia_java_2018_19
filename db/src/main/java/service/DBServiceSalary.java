@@ -16,7 +16,7 @@ public class DBServiceSalary {
 
         ResultSet listResultSet = statement.executeQuery(listSalaries);
 
-        List<Employee> salaryList = new ArrayList();
+        List<Employee> salaryList = new ArrayList<Employee>();
 
         while (listResultSet.next()) {
 
@@ -30,7 +30,7 @@ public class DBServiceSalary {
         }
 
         for (Employee employee:salaryList){
-            System.out.println(employee.getSalary());
+            System.out.println(employee.toString());
         }
 
         return salaryList;
