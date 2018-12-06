@@ -5,28 +5,37 @@ import dto.Employee;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DBServiceSalary {
 
     public List<Employee> myList()  throws ClassNotFoundException, SQLException {
 
         Statement statement = DB.INSTANCE().connection().createStatement();
+        Scanner input = new Scanner(System.in);
 
-        String listSalaries = "select * from salaries where salary>=1000;";
+        System.out.println("Introduza o salário:");
+        double salario = input.nextDouble();
 
-        ResultSet listResultSet = statement.executeQuery(listSalaries);
+      // String listSalaries = "select * from salaries";
+
+        String query = new StringBuilder()
+                .append("select * from salaries where salary>=").append(salario).toString();
+
+      //  ResultSet listResultSet = statement.executeQuery(listSalaries);
+        ResultSet listResultSet2 = statement.executeQuery(query);
 
         List<Employee> salaryList = new ArrayList<Employee>();
 
-        while (listResultSet.next()) {
+        while (listResultSet2.next()) {
 
             Employee salaryEmployee = new Employee();
-            salaryEmployee.setNumber(listResultSet.getInt("emp_no"));
-            salaryEmployee.setSalary(listResultSet.getInt("salary"));
-            salaryEmployee.setFrom_date(listResultSet.getString("from_date"));
-            salaryEmployee.setTo_date(listResultSet.getString("to_date"));
+            salaryEmployee.setNumber(listResultSet2.getInt("emp_no"));
+            salaryEmployee.setSalary(listResultSet2.getInt("salary"));
+            salaryEmployee.setFrom_date(listResultSet2.getString("from_date"));
+            salaryEmployee.setTo_date(listResultSet2.getString("to_date"));
 
-            salaryList.add(salaryEmployee);
+                salaryList.add(salaryEmployee);
         }
 
         for (Employee employee:salaryList){
@@ -34,8 +43,6 @@ public class DBServiceSalary {
         }
 
         return salaryList;
-
-
 
     }
 
