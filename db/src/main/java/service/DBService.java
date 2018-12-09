@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DBService {
 
@@ -73,9 +74,18 @@ public class DBService {
 
         Statement statement = DB.INSTANCE().connection().createStatement();
 
-        String salary="select * from salaries where salary>=1000;";
+        //String salary="select * from salaries where salary>=1000;";
 
-        ResultSet ListresultSet = statement.executeQuery(salary);
+        Scanner input = new Scanner(System.in);
+        System.out.println("Indivíduos com salário superior a:");
+        int salario = input.nextInt();
+
+        String query_salary = new StringBuilder()
+                .append("select * from salaries where salary>")
+                .append(salario)
+                .toString();
+
+        ResultSet ListresultSet = statement.executeQuery(query_salary);
         List<Employee> salaryList = new ArrayList<Employee>();
 
 
@@ -91,19 +101,26 @@ public class DBService {
             salaryList.add(Employee_salary);
 
         }
-         for (Employee emp: salaryList){
+
+
+        for (Employee emp: salaryList){
              System.out.println(emp);
          }
+
 
         return salaryList;
 
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        DBService teste = new DBService();
-        teste.EmployeeList();
+       DBService teste = new DBService();
+
+       teste.EmployeeList();
 
     }
+
+
+
 }
 
 
