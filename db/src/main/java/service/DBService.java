@@ -76,7 +76,7 @@ public class DBService {
         String salary="select * from salaries where salary>=1000;";
 
         ResultSet ListresultSet = statement.executeQuery(salary);
-        List<Employee> salaryList = new ArrayList();
+        List<Employee> salaryList = new ArrayList<Employee>();
 
 
         while (ListresultSet.next()){
@@ -91,14 +91,18 @@ public class DBService {
             salaryList.add(Employee_salary);
 
         }
-        System.out.println(salaryList);
+         for (Employee emp: salaryList){
+             System.out.println(emp);
+         }
+
         return salaryList;
+
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DBService teste = new DBService();
         teste.EmployeeList();
-        //System.out.println(teste.myList());
+
     }
 }
 
