@@ -48,6 +48,6 @@ public class DBServiceTest {
         Assert.assertTrue(savedEmployee.getFirstName().equals(toSave.getFirstName()));
 
         //assertJ
-        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number");
+        assertThat(savedEmployee).isEqualToIgnoringGivenFields(toSave, "number", "hireDate");
     }
 }
