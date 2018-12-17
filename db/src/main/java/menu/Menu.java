@@ -1,6 +1,8 @@
 package menu;
 
 import dto.Employee;
+import dto.InsertEmployeeRequest;
+import dto.InsertEmployeeResponse;
 import service.DBService;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.Scanner;
 public class Menu {
 
     private Scanner input = new Scanner(System.in);
-    DBService dbService = new DBService();
+    DBService dbService = new DBService(null);
 
 
     public String display() throws Exception {
@@ -29,8 +31,11 @@ public class Menu {
             switch (selection) {
                 case 1:
 
-                    Employee toSave = readNewEmployee();
-                    Employee employee = dbService.insertEmployee(toSave);
+                    InsertEmployeeResponse toSave = readNewEmployee();
+                    InsertEmployeeRequest request = new InsertEmployeeRequest();
+                    request.setFirstName(toSave.getFirstName());
+
+                    InsertEmployeeResponse employee = dbService.insertEmployee(request);
 
                     System.out.println(employee);
 
@@ -48,7 +53,7 @@ public class Menu {
         }
     }
 
-    private Employee readNewEmployee() {
+    private InsertEmployeeResponse readNewEmployee() {
 
         System.out.println("-- New Employee Menu--");
         System.out.println("Insert date of birth as 'YYYY-MM-dd'");
@@ -63,12 +68,15 @@ public class Menu {
         System.out.println("Insert gender as 'M' or 'F");
         String gender = input.next();
 
-        Employee toSave = new Employee();
+        InsertEmployeeRequest toSave = new InsertEmployeeRequest();
         toSave.setDob(dob);
         toSave.setFirstName(firstName);
         toSave.setLastName(lastName);
         toSave.setGender(gender);
 
-        return toSave;
+        InsertEmployeeResponse response = new InsertEmployeeResponse();
+        response.setFirstName(toSave.getFirstName());
+
+        return response;
     }
 }
