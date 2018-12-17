@@ -1,3 +1,4 @@
+import dao.EmployeeDao;
 import dto.Employee;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,9 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DBServiceTest {
 
     @Test
-    public void insert_validUser_returnPersistedUser() throws SQLException, ClassNotFoundException {
+    public void insert_validUser_returnPersistedUser() throws Exception {
 
-        DBService service = new DBService();
+        EmployeeDao dao = new EmployeeDao();
+        DBService service = new DBService(dao);
 
         Employee toSave = new Employee();
         toSave.setFirstName("Arthur");
@@ -32,9 +34,10 @@ public class DBServiceTest {
     }
 
     @Test
-    public void insert_withHireDate_returnsHireDateAsToday() throws SQLException, ClassNotFoundException {
+    public void insert_withHireDate_returnsHireDateAsToday() throws Exception {
 
-        DBService service = new DBService();
+        EmployeeDao dao = new EmployeeDao();
+        DBService dbService = new DBService(dao);
 
         Employee toSave = new Employee();
         toSave.setFirstName("Arthur");
@@ -43,7 +46,7 @@ public class DBServiceTest {
         toSave.setGender("M");
         toSave.setHireDate("1970-01-01");
 
-        Employee savedEmployee = service.insertEmployee(toSave);
+        Employee savedEmployee = dbService.insertEmployee(toSave);
 
         //simple
         Assert.assertTrue(savedEmployee.getFirstName().equals(toSave.getFirstName()));
@@ -53,8 +56,11 @@ public class DBServiceTest {
     }
 
     @Test
-    public void listReturnsEmployeeClassObject() throws SQLException, ClassNotFoundException {
-        DBService dbService = new DBService();
+    public void listReturnsEmployeeClassObject() throws Exception {
+
+        EmployeeDao dao = new EmployeeDao();
+        DBService dbService = new DBService(dao);
+
         List<Employee> employeeSalaryByDept = dbService.listEmployeeSalariesByDepartment();
 
         Employee testEmployee = employeeSalaryByDept.get(0);
