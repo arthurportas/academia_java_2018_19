@@ -24,9 +24,6 @@ public class DBServiceSalary {
             Employee salaryEmployee = new Employee();
             salaryEmployee.setNumber(listResultSet.getInt("emp_no"));
             salaryEmployee.setSalary(listResultSet.getInt("salary"));
-            salaryEmployee.setFrom_date(listResultSet.getString("from_date"));
-            salaryEmployee.setTo_date(listResultSet.getString("to_date"));
-
             salaryList.add(salaryEmployee);
         }
 
