@@ -1,5 +1,6 @@
 package service;
 
+import Converter.Converter;
 import Dao.EmployeeDao;
 import db.DB;
 import dto.Employee;
@@ -23,24 +24,7 @@ public class DBService {
 
     public InsertEmployeeResponse insertEmployee(InsertEmployeeRequest request) throws SQLException, ClassNotFoundException {
 
-        Employee toSave = new Employee();
-
-        toSave.setFirstName(request.getFirstName());
-        toSave.setLastName(request.getLastName());
-        toSave.setGender(request.getGender());
-        toSave.setDob(request.getDob());
-        toSave.setHireDate(request.getHireDate());
-        toSave.setNumber(request.getNumber());
-
-        Employee savedEmployee = dao.insertEmployee(toSave);
-
-        InsertEmployeeResponse response = new InsertEmployeeResponse();
-        response.setFirstName(savedEmployee.getFirstName());
-        response.setLastName(savedEmployee.getLastName());
-        response.setDob(savedEmployee.getDob());
-        response.setGender(savedEmployee.getGender());
-        response.setHireDate(savedEmployee.getHireDate());
-        response.setNumber(savedEmployee.getNumber());
+        InsertEmployeeResponse response = new Converter().convertEmployee(request);
 
         return response;
 
