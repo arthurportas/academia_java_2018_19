@@ -1,5 +1,6 @@
 package menu;
 
+import Dao.EmployeeDao;
 import dto.Employee;
 import dto.InsertEmployeeRequest;
 import dto.InsertEmployeeResponse;
@@ -10,8 +11,10 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private EmployeeDao dao;
+
     private Scanner input = new Scanner(System.in);
-    DBService dbService = new DBService(null);
+    DBService dbService = new DBService(dao);
 
 
     public String display() throws Exception {
