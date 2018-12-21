@@ -46,14 +46,28 @@ public class DBServiceSalary {
 
     }
 
+        public String listUpdate() throws ClassNotFoundException, SQLException {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String jdbc = "jdbc:mysql://localhost/employees?user=root&password=password";
+            Connection connection = DriverManager.getConnection(jdbc);
+
+        String query2="update salaries set salary=? where emp_no=?;";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query2);
+        preparedStatement.setInt(1,500);
+        preparedStatement.setInt(2,2);
+
+        preparedStatement.executeUpdate();
+
+        return null;
+        }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        DBServiceSalary dbServiceSalary = new DBServiceSalary();
 
-        DBServiceSalary exemplo = new DBServiceSalary();
-
-        exemplo.myList();
-
+        dbServiceSalary.listUpdate();
     }
-
 
 
 }
