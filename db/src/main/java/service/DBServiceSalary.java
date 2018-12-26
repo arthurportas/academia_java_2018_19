@@ -9,6 +9,32 @@ import java.util.Scanner;
 
 public class DBServiceSalary {
 
+    public Employee insertNewSalary() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String jdbc = "jdbc:mysql://localhost/employees?user=root&password=password";
+        Connection connection = DriverManager.getConnection(jdbc);
+
+        Employee salaryEmployee = new Employee();
+
+        salaryEmployee.setNumber(4);
+        salaryEmployee.setSalary(2500);
+        salaryEmployee.setFrom_date("2000-07-14");
+        salaryEmployee.setTo_date("2018-12-12");
+
+        String query="insert into salaries(emp_no,salary,from_date,to_date) values(?,?,?,?)";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        preparedStatement.setLong(1,salaryEmployee.getNumber());
+        preparedStatement.setInt(2,salaryEmployee.getSalary());
+        preparedStatement.setString(3,salaryEmployee.getFrom_date());
+        preparedStatement.setString(4,salaryEmployee.getTo_date());
+
+        preparedStatement.execute();
+
+        return salaryEmployee;
+    }
+
     public List<Employee> myList()  throws ClassNotFoundException, SQLException {
 
         Statement statement = DB.INSTANCE().connection().createStatement();
@@ -48,14 +74,18 @@ public class DBServiceSalary {
 
         public String listUpdate() throws ClassNotFoundException, SQLException {
 
+            Scanner input = new Scanner(System.in);
             Class.forName("com.mysql.cj.jdbc.Driver");
             String jdbc = "jdbc:mysql://localhost/employees?user=root&password=password";
             Connection connection = DriverManager.getConnection(jdbc);
 
         String query2="update salaries set salary=? where emp_no=?;";
 
+            System.out.println("Introduza o salário:");
+            int salario = input.nextInt();
+
         PreparedStatement preparedStatement = connection.prepareStatement(query2);
-        preparedStatement.setInt(1,500);
+        preparedStatement.setInt(1,salario);
         preparedStatement.setInt(2,2);
 
         preparedStatement.executeUpdate();
@@ -66,7 +96,7 @@ public class DBServiceSalary {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DBServiceSalary dbServiceSalary = new DBServiceSalary();
 
-        dbServiceSalary.listUpdate();
+        dbServiceSalary.insertNewSalary();
     }
 
 
